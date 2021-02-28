@@ -1,0 +1,37 @@
+.w3-container[data-controller="whatsit" ]
+  
+  .w3-row-padding
+
+    .s8.w3-col.w3-border
+      
+      p = tag.button('Clear Console', data:{action:"click->whatsit#clear"})
+
+      = render partial:"console", locals:{results:@results}
+
+    .s4.w3-col
+      h5 WhatsitToYou Demo
+      strong Last Query (Debug/info field)
+      = tag.div(tag.textarea("",data:{whatsit_target:"query"},class:'w80p'))
+      / = tag.div(tag.textarea("",data:{whatsit_target:"confirm"},class:'w80p'))
+
+      ul
+        li Entering 1 word will search for a subject, relation or value that matches the word
+        li Entering 2 word will search all objects to find object or intersections or unions
+        li Entering 3 will either display the match or offer to create the tuple
+      strong Query Command's
+      ul 
+        li dump's will dump all tuples
+        li subject's will display all subject names
+        li value's will display all value names
+        li relation's will display all relation names
+        li family's (subject) {relation} will dispay all subject's relations and their relations (can filter by optional {relation})
+      strong Update Command's
+      ul
+        li forget's [subject,relation,value] name will delete that object (and any references) once confirmed
+        li change's [subject,relation,value] name <i>to</i> new_name
+      p Muli- Word subjects, relations or values must <b>all</b> be deliminated by 's, <i>What's bob jone's home phone's</i>
+
+ 
+/ https://onrails.blog/2018/11/09/build-a-markdown-editor-in-stimulus-js-like-in-vue-js/
+
+/ https://jsfiddle.net/ourcodeworld/o4k7rfu0/1/

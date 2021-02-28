@@ -1,0 +1,5 @@
+// Replace the br caused by enter key
+ihtmlnode =document.getElementById('query_results')
+// x = ihtmlnode.innerHTML.replace('<div><span><br></span></div>','')
+// ihtmlnode.innerHTML = x
+ihtmlnode.innerHTML += ('<%= escape_javascript(render html: whatsit_actions ) %>');

@@ -1,0 +1,23 @@
+// Place all the styles related to the subjects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.console {
+  height:85vh; 
+  background-color:#333;
+  color:orange;
+  font-family:monaco; 
+  padding:6px; 
+  overflow:scroll;
+}
+
+.w80p{width:80%;}
+
+#query_results {
+  input {
+    background-color:#333;
+    color:orange;
+    border:none;
+    width:320px;
+    outline:none;
+  }
+}
