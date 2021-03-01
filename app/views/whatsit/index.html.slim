@@ -9,9 +9,12 @@
       = render partial:"console", locals:{results:@results}
 
     .s4.w3-col
-      h5 WhatsitToYou Demo
+      h5 
+        strong.w3-left WhatsitToYou Demo
+        .w3-right = button_to "GoTo Marked Demo", "marked", method: :get
+        .w3-clear
       strong Last Query (Debug/info field)
-      = tag.div(tag.textarea("",data:{whatsit_target:"query"},class:'w80p'))
+      = tag.div(tag.textarea("",id:'last_query',data:{whatsit_target:"query"},class:'w80p'))
       / = tag.div(tag.textarea("",data:{whatsit_target:"confirm"},class:'w80p'))
 
       ul
@@ -30,6 +33,7 @@
         li forget's [subject,relation,value] name will delete that object (and any references) once confirmed
         li change's [subject,relation,value] name <i>to</i> new_name
       p Muli- Word subjects, relations or values must <b>all</b> be deliminated by 's, <i>What's bob jone's home phone's</i>
+
 
  
 / https://onrails.blog/2018/11/09/build-a-markdown-editor-in-stimulus-js-like-in-vue-js/

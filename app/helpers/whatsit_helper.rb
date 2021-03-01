@@ -14,7 +14,6 @@ module WhatsitHelper
       return tag.div("#{@whatsit.params}") #basic prompt on own line, should not happen, check
     else
       @query = @whatsit.search(@whatsit.params[:search])
-      # puts "TINK LIST #{@query.inspect}"
       # => 1. Displays a query response. it will be an array which will be formated using  ul/li elements
       return whatsit_list if @query.is_a?(Array)
       # => 3. Builds and display a confirmation prompt for create, destroy or update (change)
@@ -24,8 +23,9 @@ module WhatsitHelper
   end
 
   def whatsit_list # dump the list
+    q = tag.div("Searching for => #{@whatsit.params[:search]}",style:"font-style: italic;")
     t = tag.ul(whatsit_item,class:'my-ul')
-    return (t+prompt).html_safe
+    return (q + t + prompt).html_safe
   end
 
   def whatsit_item
@@ -38,7 +38,7 @@ module WhatsitHelper
 
   def prompt
     s = tag.span("WhatsitToYou?&nbsp;".html_safe)
-    i = tag.input("",data:{whatsit_target:'input_node'}, class:'query')
+    i = tag.input("",data:{whatsit_target:'input_node',action:'change->whatsit#search'}, class:'query')
     (s + i).html_safe
   end
 
@@ -96,11 +96,13 @@ module WhatsitHelper
       cclass = 'create'
       eop = "Create?"
     end
-    br = tag.br
-    i = tag.input("",data:{whatsit_target:'input_node',confirm:"#{@whatsit.action}"}, class:cclass)
+    q = tag.div("Searching for => #{@whatsit.params[:search]}",style:"font-style: italic;")
 
-    tg = tag.span("#{@query} (y/n) #{eop} #{i}".html_safe)
-    return  (br + tg ).html_safe
+    br = tag.br
+    i = tag.input("",data:{whatsit_target:'input_node',action:'change->whatsit#search',confirm:"#{@whatsit.action}"}, class:cclass)
+    yn = tag.span("(y/n)?&nbsp;".html_safe)
+    tg = tag.span("#{@query} #{eop} #{i}".html_safe)
+    return  (br + q + tg + br + yn + i).html_safe
   end
 
   def query_contains?(word)

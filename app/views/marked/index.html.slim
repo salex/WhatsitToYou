@@ -1,0 +1,30 @@
+.w3-container[data-controller="marked" style="max-height: 90vh;"]
+  h3 Marked Demo
+  .w3-row-padding
+    .w3-half
+      = tag.button('B', data:{action:"click->marked#bold"})
+      = tag.button('I', data:{action:"click->marked#italic"})
+      = tag.button('BI', data:{action:"click->marked#italicBold"})
+      = tag.button('H1', data:{action:"click->marked#h1"})
+      = tag.button('H2', data:{action:"click->marked#h2"})
+      = tag.button('H3', data:{action:"click->marked#h3"})
+      = tag.button('H4', data:{action:"click->marked#h4"})
+      = tag.button('H5', data:{action:"click->marked#h5"})
+      = tag.button('H6', data:{action:"click->marked#h6"})
+      = tag.button('BQ>', data:{action:"click->marked#backQuote"})
+      = tag.button('BT`', data:{action:"click->marked#backTick"})
+      = tag.button('UL', data:{action:"click->marked#ul"})
+      = tag.button('OL', data:{action:"click->marked#ol"})
+      = tag.button('FC', data:{action:"click->marked#fencedCode"})
+      = tag.button('LK', data:{action:"click->marked#anchor"})
+      = tag.button('IM', data:{action:"click->marked#image"})
+      = tag.textarea('', data:{action:"input->marked#convertToMarkdown change->marked#convertToMarkdown",marked_target:"markup"},style:'width:100%;height:75vh;')
+    .w3-half
+      .w3-left = tag.button('Rendered Markdown')
+      .w3-right = button_to "GoTo WhatsItToYou Demo", root_path, method: :get
+      .w3-clear
+      = tag.div('',data:{marked_target:'viewer'},style:"border:solid black 1px;height:75vh;overflow:scroll;")
+ 
+/ https://onrails.blog/2018/11/09/build-a-markdown-editor-in-stimulus-js-like-in-vue-js/
+
+/ https://jsfiddle.net/ourcodeworld/o4k7rfu0/1/

@@ -6,7 +6,7 @@ class Whatsit
   end
 
   def search(query)
-    query.strip! unless query.blank?# get rid of leading/trailing spaces
+    query.strip! unless query.blank? # get rid of leading/trailing spaces
     return ["You's asked to find nothing!"] if query.blank?
     # remove the optional what's and who's from query
     query.gsub!(/what's/i, '') if query.starts_with?(/what's/i)
@@ -90,11 +90,13 @@ class Whatsit
     return query
   end
 
+  private
+
   def parse_query
     words = query.match(/'s/i) ? query.split(/'s/i).each{|i| i.strip!} : query.split.each{|i| i.strip!}
     error = nil
     if words.size > 3 
-      error = ["Opps, you have either to many words or a malformed query.\n Make sure you use 's to delimit words \n if you have spaces in object name \n or you've used 's on only one word "]
+      error = ["Opps, you either have to many words or a malformed query.\n Make sure you use 's to delimit words \n if you have spaces in object name \n or you've used 's on only one word "]
     end
     commands = %w[whats what whos who forgets forget changes change subjects subject relations relation values value dumps dump]
     filter = commands & words
