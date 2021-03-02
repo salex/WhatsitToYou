@@ -13,6 +13,8 @@ module WhatsitHelper
       return change if @whatsit.params[:action_type] == 'change'
       return tag.div("#{@whatsit.params}") #basic prompt on own line, should not happen, check
     else
+      @question = String.new(@whatsit.params[:search])
+      puts "Q #{@question}"
       @query = @whatsit.search(@whatsit.params[:search])
       # => 1. Displays a query response. it will be an array which will be formated using  ul/li elements
       return whatsit_list if @query.is_a?(Array)
@@ -23,7 +25,9 @@ module WhatsitHelper
   end
 
   def whatsit_list # dump the list
-    q = tag.div("Searching for => #{@whatsit.params[:search]}",style:"font-style: italic;")
+    puts "Q #{@question}"
+
+    q = tag.div("Searching for => #{@question}",style:"font-style: italic;")
     t = tag.ul(whatsit_item,class:'my-ul')
     return (q + t + prompt).html_safe
   end

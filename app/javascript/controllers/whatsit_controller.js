@@ -43,12 +43,12 @@ export default class extends Controller {
       type: "get",
       success: function(data) {
         const viewer = document.getElementById('query_results')
-        // const last_query = document.getElementById('last_query')
+        const last_query = document.getElementById('last_query')
         const inputs = viewer.querySelectorAll('input')
         const inputs_length = inputs.length
-        // var prev = inputs[inputs_length - 2]
+        var prev = inputs[inputs_length - 2]
         var last = inputs[inputs_length - 1]
-        // prev.value = last_query.value
+        prev.value = last_query.value
         last.focus()
       }
     })
