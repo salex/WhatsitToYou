@@ -9,11 +9,14 @@ export default class extends Controller {
   }
 
   convertToMarkdown(event) {
-    this.viewerTarget.innerHTML = marked(event.target.value, {sanitized: true, highlight: function(code, language) {
+    // changed to add class hljs to all code tage
+    var html = marked(event.target.value, {sanitized: true, highlight: function(code, language) {
       const hljs = require('highlight.js');
       const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
       return hljs.highlight(validLanguage, code).value;
     }})
+    html = html.replace(/\<code class=\"/g,'<code class="hljs ')
+    this.viewerTarget.innerHTML = html
   }
 
   trigger(){

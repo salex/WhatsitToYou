@@ -1,4 +1,4 @@
-### WhatIsIt
+### WhatsitToYou
 
 WHATSIT or Wow! Howd All That Stuff Get In There!! was a command line database program I first saw at the 1978 West Coast Computer Fair. I think I actually bought it and was amazed by what it could do. I had made several attempts over the years to replicate it using RoR, but only got so far. It's alway been a learning attempt, not something that had any real use for. I decided to make another attempt, but going back to original command line interface. 
 
@@ -30,11 +30,11 @@ class Value < Subject
 end
 ```
 
-If you create a new 3Tuple (always wanted to use the word Tuple after reading the early Relational Database books!) you'd type something like
+To create a new 3Tuple (always wanted to use the word Tuple after reading the early Relational Database books!) you'd type something like
 
     Steve's child's Lori
 
-If it didn't find and display the query, after confirming you want to create a new Tuple, two subjects would be created (Steve and Lori), and a relation `child` would be created linking the subject_id to Steve and the value_id to Lori. Now if you did another Tuple
+If it didn't find and display the tuple you'd be prompted to confirm you want to create a new Tuple. I you respond with a yes, two subjects would be created (Steve and Lori), and a relation `child` would be created linking the subject_id to Steve and the value_id to Lori. Now if you did another Tuple
 
     Lori's child's Sarrah
 
@@ -60,9 +60,9 @@ Now if this in not going Back to the Past I don't know what is. The 's are optio
 * Relation's list the relation names (unique)
 * Family's word dumps all relations (the family tree) for the word
 
-On the console/terminal side, the console is just a div that is contains the data-controller_whatsit, and a prompt div that contains in input field that has a stimulus data_action keydown->search that responds to a keydown event. If the keydown is 'Enter' it sends the value of the input field to the controller's new.js action with Rail.ujs.
+On the console/terminal side, the console is just a div that is contains the data-controller-whatsit, and a prompt div that contains in input field that has a stimulus data_action change->search that responds to a onchange event. If changed it sends the value of the input field as a param to the controller's new.js action with Rail.ujs.
 
-The controller initializes a new Whatsit class, stuffs the parameters in the class can call a Whatsit helper method whatsit_actions. The helper is the traffic cop. Based on the parameters:
+The controller initializes a new Whatsit class, stuffs the parameters in the class and calls Whatsit helper method whatsit_actions. The helper is the traffic cop. Based on the parameters:
 
 * It will call a search method with the query
   * If it responds with an array, it will be the results of the query, (Tuples or an Error)
@@ -77,7 +77,7 @@ The stimulus controller basically:
 
 * Builds the parameter for the ajax call
 * Moves the cursor (caret) to the last input field
-* Scrolls the console div to the bottom
+* Scrolls the console div to the bottom (by focusing on the last input field)
 
 
 ```javascript
@@ -93,26 +93,23 @@ export default class extends Controller {
   }
 
   search(){
-    if (event.key == 'Enter') {
-      var inpts = this.input_nodeTargets
-      var tuple_node = inpts.pop() 
-      // get the last inpute field)
-      this.query(tuple_node)
-    }
+    const tuple_node = event.target
+    this.query(tuple_node)    
   }
 
   clear() {
-    this.consoleTarget.innerHTML = '<span>WhatsitToYou?&nbsp;</span><input data-whatsit-target="input_node">'
+    this.consoleTarget.innerHTML = '<span>WhatsitToYou?&nbsp;</span><input data-whatsit-target="input_node" data-action="change->whatsit#search">'
     this.moveCursor()
   }
 
   moveCursor(){
-    var inpts = this.consoleTarget.querySelectorAll('input')
-    var last = inpts[inpts.length -1]
+    const inpts = this.consoleTarget.querySelectorAll('input')
+    const last = inpts[inpts.length -1]
     last.focus()
   }
  
   query(tuple){
+
     const cls = tuple.className
     const val = tuple.value
     const confirm = tuple.dataset.confirm
@@ -128,14 +125,18 @@ export default class extends Controller {
       url: url,
       type: "get",
       success: function(data) {
-        var viewer = document.getElementById('query_results')
-        viewer.scrollBy(0,3000)
-        var inputs = viewer.querySelectorAll('input')
-        var last = (inputs[inputs.length - 1])
+        const viewer = document.getElementById('query_results')
+        // const last_query = document.getElementById('last_query')
+        const inputs = viewer.querySelectorAll('input')
+        const inputs_length = inputs.length
+        // var prev = inputs[inputs_length - 2]
+        var last = inputs[inputs_length - 1]
+        // prev.value = last_query.value
         last.focus()
       }
     })
   }
+
 }
 ```
 
