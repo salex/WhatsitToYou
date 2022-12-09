@@ -21,3 +21,62 @@
     outline:none;
   }
 }
+
+// <nav id="nav-element"> 
+//   <button id="button-dropdown">Dropdown </button>
+//   <div id="div-products">
+//     <a href="">Product 1 </a>
+//     <a href="">Product 2 </a>
+//     <a href="">Product 3 </a>
+//     <a href="">Product 4 </a>
+//     <a href="">Product 5 </a>
+//   </div>
+// </nav>
+
+/* <nav> element */
+ #nav-element {
+   position: relative;
+   display: inline-block;
+   z-index: 99;
+
+ }
+
+/* <button> element */
+ #button-dropdown {
+   width: 10rem;
+   margin: auto;
+   padding: 0.5rem 0rem;
+   background-color: #3b70ff;
+   color: white;
+   border: 1px solid #3b70ff;
+ }
+
+ /* <div> element */
+  #div-products {
+    display: none;
+    width: 10rem;
+    margin: auto;
+    color: #3b70ff;
+    border: 1px solid #3b70ff;
+    z-index: 99;
+
+  }
+
+  
+  /* <a> element */
+  #div-products a {
+    display: block;
+    text-decoration: none;
+    padding: 0.5rem 0rem;
+    z-index: 99;
+
+  }
+
+  #nav-element:hover #div-products {
+    display: block;
+  }
+
+  #div-products a:hover {
+    background-color: #3b70ff;
+    color: white;
+  }

@@ -21,9 +21,10 @@
       = tag.textarea('', data:{action:"input->marked#convertToMarkdown change->marked#convertToMarkdown",marked_target:"markup"},style:'width:100%;height:75vh;')
     .w3-half
       .w3-left = tag.button('Rendered Markdown')
-      .w3-right = button_to "GoTo WhatsItToYou Demo", root_path, method: :get
+      .w3-right 
+        = button_to "GoTo WhatsItToYou Demo", root_path, method: :get
       .w3-clear
-      = tag.div('',data:{marked_target:'viewer'},style:"padding:6px;border:solid black 1px;height:75vh;overflow:scroll;")
+      = tag.div('',data:{marked_target:'viewer'},style:"padding:6px;border:solid black 1px;z-index:0;height:75vh;overflow:scroll;")
  
 / https://onrails.blog/2018/11/09/build-a-markdown-editor-in-stimulus-js-like-in-vue-js/
 
